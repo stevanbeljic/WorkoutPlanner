@@ -1,35 +1,43 @@
 package gui;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class ExerciseCard extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private ArrayList<Set> setsArray;
 
-	/**
-	 * Create the panel.
-	 */
-	public ExerciseCard(Exercise e) {
-		setForeground(new Color(0, 0, 0));
-		setBounds(0, 0, 830, 100);
-		setLayout(null);
-		
-		JLabel exNameLabel = new JLabel(e.getName());
-		exNameLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		exNameLabel.setFont(new Font(Font.DIALOG, Font.BOLD, 12));
-		exNameLabel.setBounds(24, 24, 174, 46);
-		add(exNameLabel);
-		
-		JLabel lblSets = new JLabel("SET INFO GOES HERE");
-		lblSets.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSets.setBounds(488, 24, 174, 46);
-		add(lblSets);
+    public ExerciseCard(Exercise e) {
+        setMaximumSize(new Dimension(820, 100));
+        setLayout(new BorderLayout());
 
-	}
+        add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+        
+        JLabel exNameLabel = new JLabel(e.getName());
+        exNameLabel.setBounds(21, 115, 97, 24);
+        exNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        exNameLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+        add(exNameLabel, BorderLayout.CENTER);
+
+        setsArray = e.getSets();
+
+        JPanel viewportView = new JPanel();
+        viewportView.setLayout(new BoxLayout(viewportView, BoxLayout.Y_AXIS));
+
+        for (int i = 0; i < setsArray.size(); i++) {
+            JLabel setIndexLabel = new JLabel("Set " + (i + 1) + ": " + setsArray.get(i).getReps() + " repetitions");
+            viewportView.add(setIndexLabel);
+        }
+
+        JScrollPane setScrollPane = new JScrollPane();
+        setScrollPane.setBounds(150, 0, 676, 249);
+        setScrollPane.setPreferredSize(new Dimension(400, 100));
+        setScrollPane.setViewportView(viewportView);
+        add(setScrollPane, BorderLayout.EAST);
+
+        revalidate();
+    }
 
 }
