@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -27,6 +26,7 @@ public class App {
 		try {
 			nExercises = Integer.valueOf(nExercisesString);
 			if(nExercises < 1) {
+				kb.close();
 				throw new NumberFormatException("Provided argument less than 1");
 			}
 		} catch(NumberFormatException e) {
@@ -67,6 +67,7 @@ public class App {
 		char c = kb.next().charAt(0);
 		
 		if(c == 'Y') writeToSheet(e);
+		kb.close();
 		
 	}
 	

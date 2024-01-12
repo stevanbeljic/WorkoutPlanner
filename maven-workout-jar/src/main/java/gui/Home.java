@@ -5,20 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,7 +24,7 @@ public class Home extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		FlatLightLaf.setup();
+		//FlatLightLaf.setup();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

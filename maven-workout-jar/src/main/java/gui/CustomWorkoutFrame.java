@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,17 +20,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
 import javax.swing.JToolBar;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import javax.swing.border.TitledBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -53,7 +44,7 @@ public class CustomWorkoutFrame extends JFrame {
 		}
 	}
 	
-	private final ArrayList<Exercise> exerciseArray = new ArrayList();
+	private final ArrayList<Exercise> exerciseArray = new ArrayList<Exercise>();
 	
 	/**
 	 * Create the frame.
@@ -100,7 +91,7 @@ public class CustomWorkoutFrame extends JFrame {
 		btnAddEx.setEnabled(false);
 		
 		String setArray[] = {"0","1","2","3","4","5","6","7","8","9","10"};
-		final JComboBox comboBoxSetAmount = new JComboBox(setArray);
+		final JComboBox<String> comboBoxSetAmount = new JComboBox<String>(setArray);
 		comboBoxSetAmount.setSelectedIndex(0);
 		comboBoxSetAmount.setBounds(140, 91, 60, 22);
 		panel.add(comboBoxSetAmount);
