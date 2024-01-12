@@ -196,6 +196,15 @@ public class CustomWorkoutFrame extends JFrame {
 			}
 		});
 		toolBar.add(clearButton);
+		
+		JButton returnButton = new JButton("Return to Home");
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Home();
+				dispose();
+			}
+		});
+		toolBar.add(returnButton);
 	}
 	
 	private void updateExerciseScrollPane(JScrollPane exScrollPane) {

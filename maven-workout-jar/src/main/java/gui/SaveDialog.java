@@ -105,7 +105,7 @@ public class SaveDialog extends JDialog {
 				}
 			}
 		});
-		saveButton.setBounds(287, 105, 89, 23);
+		saveButton.setBounds(300, 109, 89, 23);
 		contentPane.add(saveButton);
 		
 		JLabel saveLabel = new JLabel("Select how to save the workout");
@@ -123,8 +123,8 @@ public class SaveDialog extends JDialog {
 		contentPane.add(fileNameField);
 		fileNameField.setColumns(10);
 		
-		JLabel fileNameLabel = new JLabel("Please provide a file name");
-		fileNameLabel.setBounds(32, 95, 191, 14);
+		JLabel fileNameLabel = new JLabel("Please provide a file name (without extensions)");
+		fileNameLabel.setBounds(32, 95, 245, 14);
 		contentPane.add(fileNameLabel);
 	}
 	

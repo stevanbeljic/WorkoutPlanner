@@ -45,11 +45,16 @@ public class Home extends JFrame {
 			}
 		});
 	}
+	
+	public Home() {
+		createHome();
+		showHome();
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Home() {
+	public void createHome() {
 		int paneWidth = 550;
 		setIconImage(new ImageIcon(getClass().getResource("/gui/Assets/AppIcon.png")).getImage());
 		setTitle("Home - Workout Generater");
@@ -65,10 +70,8 @@ public class Home extends JFrame {
 		JButton btnCreateCustom = new JButton("Create a custom workout");
 		btnCreateCustom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dispose();
-				new CustomWorkoutFrame();
-				dispose();
-				
+				hideHome();
+				new CustomWorkoutFrame();				
 			}
 		});
 		btnCreateCustom.setBounds(50, 154, 200, 26);
@@ -82,5 +85,13 @@ public class Home extends JFrame {
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHome.setBounds(0, 83, paneWidth, 59);
 		homePane.add(lblHome);
+	}
+	
+	public void hideHome(){
+		this.setVisible(false);
+	}
+	
+	public void showHome() {
+		this.setVisible(true);
 	}
 }
