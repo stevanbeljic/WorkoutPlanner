@@ -27,6 +27,11 @@ import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.JToolBar;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
 
 public class CustomWorkoutFrame extends JFrame {
 
@@ -75,7 +80,7 @@ public class CustomWorkoutFrame extends JFrame {
 		panel.add(lblExName);
 		
 		final JPanel setsPanel = new JPanel();
-		setsPanel.setBounds(237, 11, 350, 128);
+		setsPanel.setBounds(236, 22, 350, 128);
 		panel.add(setsPanel);
 		
 		exTextField = new JTextField();
@@ -139,13 +144,29 @@ public class CustomWorkoutFrame extends JFrame {
 				btnAddEx.setEnabled(false);
 			}
 		});
-		btnAddEx.setBounds(627, 59, 114, 23);
+		btnAddEx.setBounds(640, 73, 114, 23);
 		panel.add(btnAddEx);
 		
 		
 		JLabel lblNumSets = new JLabel("Number of sets:");
 		lblNumSets.setBounds(26, 95, 119, 14);
 		panel.add(lblNumSets);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(0, 0, 816, 16);
+		toolBar.setBorderPainted(true);
+		panel.add(toolBar);
+		
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SaveDialog(exerciseArray);
+			}
+		});
+		toolBar.add(saveButton);
+		
+		JButton clearButton = new JButton("Clear");
+		toolBar.add(clearButton);
 	}
 	
 	private void updateExerciseScrollPane(JScrollPane exScrollPane) {
@@ -191,5 +212,9 @@ public class CustomWorkoutFrame extends JFrame {
 
 	    setsPanel.revalidate();
 	    setsPanel.repaint();
+	}
+	
+	public ArrayList<Exercise> getListedExercises(){
+		return exerciseArray;
 	}
 }
