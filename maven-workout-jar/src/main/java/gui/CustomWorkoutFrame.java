@@ -32,12 +32,15 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomWorkoutFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField exTextField;
+	private JCheckBox chckbxEqualReps;
 
 	public CustomWorkoutFrame() {
 		try {
@@ -88,7 +91,7 @@ public class CustomWorkoutFrame extends JFrame {
 		panel.add(exTextField);
 		exTextField.setColumns(10);
 		
-		JCheckBox chckbxEqualReps = new JCheckBox("Equal reps per set?");
+		chckbxEqualReps = new JCheckBox("Equal reps per set?");
 		chckbxEqualReps.setSelected(true);
 		chckbxEqualReps.setBounds(62, 127, 153, 23);
 		panel.add(chckbxEqualReps);
@@ -101,9 +104,17 @@ public class CustomWorkoutFrame extends JFrame {
 		comboBoxSetAmount.setSelectedIndex(0);
 		comboBoxSetAmount.setBounds(140, 91, 60, 22);
 		panel.add(comboBoxSetAmount);
+		chckbxEqualReps.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int numOfSets = Integer.valueOf(comboBoxSetAmount.getSelectedItem().toString());
+				updateSetsPanel(setsPanel, numOfSets);
+			}
+		});
 		comboBoxSetAmount.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent ae) {
 	            int numOfSets = Integer.valueOf(comboBoxSetAmount.getSelectedItem().toString());
+	            
 	            updateSetsPanel(setsPanel, numOfSets);
 	        }
 	    });
@@ -124,18 +135,31 @@ public class CustomWorkoutFrame extends JFrame {
 				int reps[] = new int[nSets];
 				
 				Component[] components = setsPanel.getComponents();
-				for (int i = 0; i < numOfSets; i++) {
-		            if (components[i] instanceof JTextField) {
-		                JTextField repTextField = (JTextField) components[i];
-		                try {
-		                    reps[i] = Integer.parseInt(repTextField.getText());
-		                } catch (NumberFormatException e) {
-		                    reps[i] = 0;
-		                }
-		            }
-		        }
+				Exercise e;
+				if(chckbxEqualReps.isSelected()) {
+					JTextField repTextField = (JTextField) components[0];
+					int rep;
+	                try {
+	                    rep = Integer.parseInt(repTextField.getText());
+	                } catch (NumberFormatException eR) {
+	                    rep = 0;
+	                }
+					e = new Exercise(exTextField.getText(), nSets, rep);
+				} else {
+					for (int i = 0; i < numOfSets; i++) {
+						if (components[i] instanceof JTextField) {
+			                JTextField repTextField = (JTextField) components[i];
+			                try {
+			                    reps[i] = Integer.parseInt(repTextField.getText());
+			                } catch (NumberFormatException eR) {
+			                    reps[i] = 0;
+			                }
+			            }
+			        }
+					e = new Exercise(exTextField.getText(), reps);
+				}
 				
-				Exercise e = new Exercise(exTextField.getText(), reps);
+				
 				exerciseArray.add(e);
 				updateExerciseScrollPane(exScrollPane);
 				
@@ -166,6 +190,11 @@ public class CustomWorkoutFrame extends JFrame {
 		toolBar.add(saveButton);
 		
 		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearExercises(exScrollPane);
+			}
+		});
 		toolBar.add(clearButton);
 	}
 	
@@ -187,6 +216,9 @@ public class CustomWorkoutFrame extends JFrame {
 	
 	private void updateSetsPanel(JPanel setsPanel, int numOfSets) {
 	    setsPanel.removeAll();
+	    if(chckbxEqualReps.isSelected()) {
+        	numOfSets = 1;
+        }
 
 	    for (int i = 1; i <= numOfSets; i++) {
 
@@ -212,6 +244,12 @@ public class CustomWorkoutFrame extends JFrame {
 
 	    setsPanel.revalidate();
 	    setsPanel.repaint();
+	}
+	
+	private void clearExercises(JScrollPane exScrollPane) {
+		exerciseArray.clear();
+		updateExerciseScrollPane(exScrollPane);
+		
 	}
 	
 	public ArrayList<Exercise> getListedExercises(){
