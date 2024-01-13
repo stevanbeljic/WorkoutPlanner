@@ -71,6 +71,12 @@ public class Home extends JFrame {
 		
 		JButton btnGenerate = new JButton("Generate a workout");
 		btnGenerate.setBounds(50 + 200 + 25, 154, 200, 26);
+		btnGenerate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hideHome();
+				new GeneratedWorkoutFrame();
+			}
+		});
 		homePane.add(btnGenerate);
 		
 		JLabel lblHome = new JLabel("Would you like to create a custom routine or have a workout generated for you?");
